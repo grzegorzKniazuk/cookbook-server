@@ -19,8 +19,8 @@ export class CategoryService {
         return await this.categoryRepository.save(category);
     }
 
-    public async update(category: CategoryEntity): Promise<UpdateResult> {
-        return await this.categoryRepository.update(category.id, category);
+    public async update(id: number, category: CategoryEntity): Promise<UpdateResult> {
+        return await this.categoryRepository.update(id, category);
     }
 
     public async delete(id: number): Promise<DeleteResult> {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CategoryEntity } from './category.entity';
 import { CategoryService } from './category.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -11,6 +11,11 @@ export class CategoryController {
     ) {
     }
 
+    @Get()
+    public fetch(): Promise<CategoryEntity[]> {
+        return this.categoryService.findAll();
+    }
+
     @Post()
     public save(@Body() category: Partial<CategoryEntity>): Promise<CategoryEntity> {
         return this.categoryService.create(category);
@@ -18,7 +23,7 @@ export class CategoryController {
 
     @Put(':id')
     public update(@Param('id') id, @Body() category: CategoryEntity): Promise<UpdateResult> {
-        return this.categoryService.update(category);
+        return this.categoryService.update(id, category);
     }
 
     @Delete(':id')
