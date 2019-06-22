@@ -6,6 +6,6 @@ export class CategoryEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column('varchar')
+    @Column('varchar', { length: 45, unique: true, nullable: false })
     public name: string;
 }
