@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoryEntity } from '../category/category.entity';
+import { IngredientEntity } from '../ingredient/ingredient.entity';
+import { DifficultyEntity } from '../difficulty/difficulty.entity';
 
 @Entity('recipe')
 export class RecipeEntity {
@@ -12,8 +15,14 @@ export class RecipeEntity {
     @Column('int', { nullable: false })
     public status_id: number;
 
-    @Column('int', { nullable: false })
+    @OneToMany(() => DifficultyEntity, (difficulty: DifficultyEntity) => difficulty.id)
     public difficulty_id: number;
+
+    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.id)
+    public categories: number[];
+
+    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.id)
+    public ingredients: number[];
 
     @Column('varchar', { length: 60, nullable: false, unique: true })
     public name: string;
