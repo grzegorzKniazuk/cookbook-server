@@ -2,8 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { IngredientService } from './ingredient.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { IngredientEntity } from './ingredient.entity';
+import { FeatureName } from '../../shared/enums';
 
-@Controller('ingredient')
+@Controller(FeatureName.INGREDIENT)
 export class IngredientController {
 
     constructor(

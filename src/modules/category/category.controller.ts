@@ -2,8 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { CategoryEntity } from './category.entity';
 import { CategoryService } from './category.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { FeatureName } from '../../shared/enums';
 
-@Controller('category')
+@Controller(FeatureName.CATEGORY)
 export class CategoryController {
 
     constructor(

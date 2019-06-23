@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { FeatureName } from '../../shared/enums';
 
-@Entity(('difficulty'))
+@Entity(FeatureName.DIFFICULTY)
 export class DifficultyEntity {
 
     @PrimaryGeneratedColumn()

@@ -2,8 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { DifficultyService } from './difficulty.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { DifficultyEntity } from './difficulty.entity';
+import { FeatureName } from '../../shared/enums';
 
-@Controller('difficulty')
+@Controller(FeatureName.DIFFICULTY)
 export class DifficultyController {
 
     constructor(

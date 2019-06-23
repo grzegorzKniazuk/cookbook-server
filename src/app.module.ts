@@ -1,17 +1,23 @@
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from './modules/category/category.module';
 import { IngredientModule } from './modules/ingredient/ingredient.module';
 import { DifficultyModule } from './modules/difficulty/difficulty.module';
+import { RecipeModule } from './modules/recipe/recipe.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot(),
+        CacheModule.register(),
         CategoryModule,
         IngredientModule,
         DifficultyModule,
+        RecipeModule,
     ],
-    providers: [],
+    providers: [
+        { provide: APP_INTERCEPTOR, useClass: CacheInterceptor },
+    ],
 })
 export class AppModule {
 }

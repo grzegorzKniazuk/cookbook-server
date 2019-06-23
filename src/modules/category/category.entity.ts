@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { FeatureName } from '../../shared/enums';
 
-@Entity('category')
+@Entity(FeatureName.CATEGORY)
 export class CategoryEntity {
 
     @PrimaryGeneratedColumn()
