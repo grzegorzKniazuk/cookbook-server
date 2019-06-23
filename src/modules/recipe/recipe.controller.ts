@@ -3,6 +3,7 @@ import { FeatureName } from '../../shared/enums';
 import { RecipeService } from './recipe.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RecipeEntity } from './recipe.entity';
+import { Observable } from 'rxjs';
 
 @Controller(FeatureName.RECIPE)
 export class RecipeController {
@@ -13,22 +14,22 @@ export class RecipeController {
     }
 
     @Get()
-    public fetch(): Promise<RecipeEntity[]> {
+    public fetch(): Observable<RecipeEntity[]> {
         return this.recipeService.findAll();
     }
 
     @Post()
-    public save(@Body() recipe: Partial<RecipeEntity>): Promise<RecipeEntity> {
+    public save(@Body() recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
         return this.recipeService.create(recipe);
     }
 
     @Put(':id')
-    public update(@Param('id') id, @Body() recipe: RecipeEntity): Promise<UpdateResult> {
+    public update(@Param('id') id, @Body() recipe: RecipeEntity): Observable<UpdateResult> {
         return this.recipeService.update(id, recipe);
     }
 
     @Delete(':id')
-    public delete(@Param('id') id): Promise<DeleteResult> {
+    public delete(@Param('id') id): Observable<DeleteResult> {
         return this.recipeService.delete(id);
     }
 }

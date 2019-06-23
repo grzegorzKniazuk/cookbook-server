@@ -4,34 +4,36 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RecipeEntity } from './recipe.entity';
 import { DatabaseException } from '../../shared/exception-handlers';
 import { DatabaseErrorMessages } from '../../shared/constants';
+import { Observable } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { ApiService } from '../../shared/interfaces';
 
 @Injectable()
-export class RecipeService {
+export class RecipeService implements ApiService<RecipeEntity> {
 
     constructor(
         @InjectRepository(RecipeEntity) private readonly recipeRepository: Repository<RecipeEntity>,
     ) {
     }
 
-    public async findAll(): Promise<RecipeEntity[]> {
-        return await this.recipeRepository.find();
+    public findAll(): Observable<RecipeEntity[]> {
+        return fromPromise(this.recipeRepository.find());
     }
 
-    public async create(recipe: Partial<RecipeEntity>): Promise<RecipeEntity> {
-        console.log(this.recipeToSave(recipe));
+    public create(recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
         try {
-            return await this.recipeRepository.save(this.recipeToSave(recipe));
+            return fromPromise(this.recipeRepository.save(this.recipeToSave(recipe)));
         } catch (e) {
             this.catchDatabaseException(e);
         }
     }
 
-    public async update(id: number, recipe: RecipeEntity): Promise<UpdateResult> {
-        return await this.recipeRepository.update(id, recipe);
+    public update(id: number, recipe: RecipeEntity): Observable<UpdateResult> {
+        return fromPromise(this.recipeRepository.update(id, recipe));
     }
 
-    public async delete(id: number): Promise<DeleteResult> {
-        return await this.recipeRepository.delete(id);
+    public delete(id: number): Observable<DeleteResult> {
+        return fromPromise(this.recipeRepository.delete(id));
     }
 
     private catchDatabaseException(e): never {
