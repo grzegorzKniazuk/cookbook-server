@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryEntity } from './category.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CategoryService {
@@ -11,19 +13,19 @@ export class CategoryService {
     ) {
     }
 
-    public async findAll(): Promise<CategoryEntity[]> {
-        return await this.categoryRepository.find();
+    public findAll(): Observable<CategoryEntity[]> {
+        return fromPromise(this.categoryRepository.find());
     }
 
-    public async create(category: Partial<CategoryEntity>): Promise<CategoryEntity> {
-        return await this.categoryRepository.save(category);
+    public create(category: Partial<CategoryEntity>): Observable<CategoryEntity> {
+        return fromPromise(this.categoryRepository.save(category));
     }
 
-    public async update(id: number, category: CategoryEntity): Promise<UpdateResult> {
-        return await this.categoryRepository.update(id, category);
+    public update(id: number, category: CategoryEntity): Observable<UpdateResult> {
+        return fromPromise(this.categoryRepository.update(id, category));
     }
 
-    public async delete(id: number): Promise<DeleteResult> {
-        return await this.categoryRepository.delete(id);
+    public delete(id: number): Observable<DeleteResult> {
+        return fromPromise(this.categoryRepository.delete(id));
     }
 }
