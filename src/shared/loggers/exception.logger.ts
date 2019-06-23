@@ -6,7 +6,7 @@ export class ExceptionLogger extends Logger {
 
         fs.writeFile(
             `../../../logs/exception-${new Date()}.txt`,
-            `message: ${message}
+            `message: ${message.toString()}
             trace: ${trace}
             context: ${context}`,
             () => super.error(message, trace),
