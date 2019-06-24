@@ -3,4 +3,6 @@ export enum FeatureName {
     DIFFICULTY = 'difficulty',
     INGREDIENT = 'ingredient',
     RECIPE = 'recipe',
+    ROLE = 'role',
+    USER = 'user',
 }

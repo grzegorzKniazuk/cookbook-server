@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CategoryEntity } from '../category/category.entity';
 import { IngredientEntity } from '../ingredient/ingredient.entity';
 import { DifficultyEntity } from '../difficulty/difficulty.entity';
@@ -10,6 +10,7 @@ export class RecipeEntity {
     public id: number;
 
     @Column('int', { nullable: false })
+    @Index()
     public user_id: number;
 
     @Column('int', { nullable: false })

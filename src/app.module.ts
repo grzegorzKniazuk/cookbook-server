@@ -5,6 +5,8 @@ import { IngredientModule } from './modules/ingredient/ingredient.module';
 import { DifficultyModule } from './modules/difficulty/difficulty.module';
 import { RecipeModule } from './modules/recipe/recipe.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { RoleModule } from './modules/role/role.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
     imports: [
@@ -14,6 +16,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         IngredientModule,
         DifficultyModule,
         RecipeModule,
+        RoleModule,
+        UserModule,
     ],
     providers: [
         { provide: APP_INTERCEPTOR, useClass: CacheInterceptor },
