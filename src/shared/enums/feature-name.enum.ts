@@ -5,4 +5,5 @@ export enum FeatureName {
     RECIPE = 'recipe',
     ROLE = 'role',
     USER = 'user',
+    STATUS = 'status',
 }

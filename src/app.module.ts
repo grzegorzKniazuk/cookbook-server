@@ -7,6 +7,7 @@ import { RecipeModule } from './modules/recipe/recipe.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RoleModule } from './modules/role/role.module';
 import { UserModule } from './modules/user/user.module';
+import { StatusModule } from './modules/status/status.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { UserModule } from './modules/user/user.module';
         RecipeModule,
         RoleModule,
         UserModule,
+        StatusModule,
     ],
     providers: [
         { provide: APP_INTERCEPTOR, useClass: CacheInterceptor },

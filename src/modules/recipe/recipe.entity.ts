@@ -1,29 +1,37 @@
-import { Column, Entity, Index, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { DifficultyEntity } from '../difficulty/difficulty.entity';
+import { UserEntity } from '../user/user.entity';
+import { StatusEntity } from '../status/status.entity';
+import { FeatureName } from '../../shared/enums';
 import { CategoryEntity } from '../category/category.entity';
 import { IngredientEntity } from '../ingredient/ingredient.entity';
-import { DifficultyEntity } from '../difficulty/difficulty.entity';
 
-@Entity('recipe')
+@Entity(FeatureName.RECIPE)
 export class RecipeEntity {
 
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column('int', { nullable: false })
     @Index()
+    @ManyToOne(() => UserEntity, (entity: UserEntity) => entity.id, { nullable: false })
+    @JoinColumn({ name: 'user_id' })
     public user_id: number;
 
-    @Column('int', { nullable: false })
+    @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false })
+    @JoinColumn({ name: 'status_id' })
     public status_id: number;
 
-    @OneToMany(() => DifficultyEntity, (difficulty: DifficultyEntity) => difficulty.id)
+    @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false })
+    @JoinColumn({ name: 'difficulty_id' })
     public difficulty_id: number;
 
-    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.id)
-    public categories: number[];
+    @ManyToMany(() => CategoryEntity)
+    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'category_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    public categories: CategoryEntity[];
 
-    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.id)
-    public ingredients: number[];
+    @ManyToMany(() => IngredientEntity)
+    @JoinTable({ name: 'ingredient_has_category', joinColumn: { name: 'ingredient_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    public ingredients: IngredientEntity[];
 
     @Column('varchar', { length: 60, nullable: false, unique: true })
     public name: string;

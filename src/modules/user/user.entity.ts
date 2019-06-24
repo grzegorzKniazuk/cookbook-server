@@ -1,14 +1,16 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { FeatureName } from '../../shared/enums';
 import { RoleEntity } from '../role/role.entity';
+import { RecipeEntity } from '../recipe/recipe.entity';
 
 @Entity(FeatureName.USER)
 export class UserEntity {
 
     @PrimaryGeneratedColumn()
+    @OneToMany(() => RecipeEntity, (entity: RecipeEntity) => entity.user_id)
     public id: number;
 
-    @ManyToOne(() => RoleEntity, (entity: RoleEntity) => entity.id, { nullable: false, eager: true })
+    @ManyToOne(() => RoleEntity, (entity: RoleEntity) => entity.id, { nullable: false })
     @JoinColumn({ name: 'role_id' })
     public role_id: number;
 
