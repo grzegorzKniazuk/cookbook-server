@@ -43,7 +43,7 @@ export class RecipeEntity {
     public ingredient_description: string;
 
     @Column('varchar', { length: 200, nullable: false })
-    public preparation_description: string;
+    public recipe_description: string;
 
     @Column('varchar', { length: 45, nullable: false })
     public time: string;

@@ -1,1 +1,1 @@
-export * from './image-upload.middleware';
+export * from './recipe-status.middleware';

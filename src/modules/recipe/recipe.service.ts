@@ -51,7 +51,7 @@ export class RecipeService implements ApiService<RecipeEntity> {
             name: recipe.name,
             photo_url: recipe.photo_url || '',
             ingredient_description: recipe.ingredient_description,
-            preparation_description: recipe.preparation_description,
+            recipe_description: recipe.recipe_description,
             time: recipe.time,
         };
     }
