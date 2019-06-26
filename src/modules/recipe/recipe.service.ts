@@ -7,6 +7,7 @@ import { DatabaseErrorMessages } from '../../shared/constants';
 import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { ApiService } from '../../shared/interfaces';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class RecipeService implements ApiService<RecipeEntity> {
@@ -21,19 +22,21 @@ export class RecipeService implements ApiService<RecipeEntity> {
     }
 
     public create(recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
-        try {
-            return fromPromise(this.recipeRepository.save(this.recipeToSave(recipe)));
-        } catch (e) {
-            this.catchDatabaseException(e);
-        }
+        return fromPromise(this.recipeRepository.save(recipe)).pipe(
+            catchError((e) => this.catchDatabaseException(e)),
+        );
     }
 
     public update(id: number, recipe: RecipeEntity): Observable<UpdateResult> {
-        return fromPromise(this.recipeRepository.update(id, recipe));
+        return fromPromise(this.recipeRepository.update(id, recipe)).pipe(
+            catchError((e) => this.catchDatabaseException(e)),
+        );
     }
 
     public delete(id: number): Observable<DeleteResult> {
-        return fromPromise(this.recipeRepository.delete(id));
+        return fromPromise(this.recipeRepository.delete(id)).pipe(
+            catchError((e) => this.catchDatabaseException(e)),
+        );
     }
 
     private catchDatabaseException(e): never {
@@ -41,18 +44,5 @@ export class RecipeService implements ApiService<RecipeEntity> {
             code: e.code,
             message: DatabaseErrorMessages[e.code] || e.message,
         }, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    private recipeToSave(recipe: Partial<RecipeEntity>): Partial<RecipeEntity> {
-        return {
-            user_id: 1,
-            status_id: 1,
-            difficulty_id: +recipe.difficulty_id,
-            name: recipe.name,
-            photo_url: recipe.photo_url || '',
-            ingredient_description: recipe.ingredient_description,
-            recipe_description: recipe.recipe_description,
-            time: recipe.time,
-        };
     }
 }

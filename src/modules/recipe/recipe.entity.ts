@@ -17,11 +17,11 @@ export class RecipeEntity {
     @JoinColumn({ name: 'user_id' })
     public user_id: number;
 
-    @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false })
+    @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false, cascade: [ 'insert' ],  })
     @JoinColumn({ name: 'status_id' })
     public status_id: number;
 
-    @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false })
+    @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false, cascade: [ 'insert' ],  })
     @JoinColumn({ name: 'difficulty_id' })
     public difficulty_id: number;
 

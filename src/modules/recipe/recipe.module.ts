@@ -4,7 +4,7 @@ import { RecipeController } from './recipe.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecipeEntity } from './recipe.entity';
 import { FeatureName } from '../../shared/enums';
-import { RecipeStatusMiddleware } from '../../shared/middleware';
+import { PendingRecipeStatusMiddleware } from '../../shared/middleware';
 
 @Module({
     imports: [
@@ -19,6 +19,6 @@ import { RecipeStatusMiddleware } from '../../shared/middleware';
 })
 export class RecipeModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-        consumer.apply(RecipeStatusMiddleware).forRoutes({ path: FeatureName.RECIPE, method: RequestMethod.POST });
+        consumer.apply(PendingRecipeStatusMiddleware).forRoutes({ path: FeatureName.RECIPE, method: RequestMethod.POST });
     }
 }

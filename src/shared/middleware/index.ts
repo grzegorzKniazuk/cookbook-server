@@ -1,1 +1,1 @@
-export * from './recipe-status.middleware';
+export * from './pending-recipe-status-middleware.service';
