@@ -8,6 +8,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RoleModule } from './modules/role/role.module';
 import { UserModule } from './modules/user/user.module';
 import { StatusModule } from './modules/status/status.module';
+import { PhotoUploadModule } from './modules/photo-upload/photo-upload.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { StatusModule } from './modules/status/status.module';
         RoleModule,
         UserModule,
         StatusModule,
+        PhotoUploadModule,
     ],
     providers: [
         { provide: APP_INTERCEPTOR, useClass: CacheInterceptor },

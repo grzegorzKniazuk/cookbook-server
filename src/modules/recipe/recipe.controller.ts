@@ -20,7 +20,6 @@ export class RecipeController {
 
     @Post()
     public save(@Body() recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
-        console.log(recipe);
         return this.recipeService.create(recipe);
     }
 
