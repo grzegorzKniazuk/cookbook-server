@@ -11,7 +11,7 @@ import { PhotoUploadService } from './photo-upload.service';
     ],
     providers: [
         PhotoUploadService,
-    ]
+    ],
 })
 export class PhotoUploadModule {
 
