@@ -17,16 +17,19 @@ export class PhotoUploadController {
     }
 
     @Post()
-    @UseInterceptors(FileInterceptor('image'))
-    public upload(@UploadedFile() file): Observable<AxiosResponse<any>> {
-        const { fieldname, originalname, encoding, mimetype, buffer, size } = file;
-
+    @UseInterceptors(FileInterceptor('image', {
+        storage: diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, ImageUploadPath);
+            },
+            filename: function (req, file, callback) {
+                callback(null, file.originalname);
+            }
+        })
+    }))
+    public upload(@UploadedFile() { mimetype }): Observable<AxiosResponse<any>> {
         if (mimetype.startsWith('image')) {
-            var fs = require('fs');
-            const canvas = new Can
-            var data = canvas.toDataURL(buffer).replace(/^data:image\/\w+;base64,/, "");
-            var buf = new Buffer(data, 'base64');
-            fs.writeFile(`${ImageUploadPath}/${originalname}`, buf);
+
         } else {
             const response: ExceptionResponse = { code: 'UNSUPPORTED_MEDIA_TYPE', message: 'Nieobsługiwany format pliku' };
 
