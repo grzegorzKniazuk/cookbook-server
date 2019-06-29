@@ -1,3 +1,3 @@
 export * from './database-error-messages';
 export * from './origin';
-export * from './image-upload-path';
+export * from './image-path';
