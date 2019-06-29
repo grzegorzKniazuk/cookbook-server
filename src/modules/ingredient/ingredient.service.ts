@@ -4,10 +4,9 @@ import { IngredientEntity } from './ingredient.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { ApiService } from '../../shared/interfaces';
 
 @Injectable()
-export class IngredientService implements ApiService<IngredientEntity> {
+export class IngredientService {
 
     constructor(
         @InjectRepository(IngredientEntity) private readonly ingredientRepository: Repository<IngredientEntity>,

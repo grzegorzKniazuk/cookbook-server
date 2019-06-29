@@ -6,5 +6,5 @@ export enum FeatureName {
     ROLE = 'role',
     USER = 'user',
     STATUS = 'status',
-    UPLOAD = 'upload',
+    PHOTO = 'photo',
 }

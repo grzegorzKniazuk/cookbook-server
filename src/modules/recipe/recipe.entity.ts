@@ -25,12 +25,12 @@ export class RecipeEntity {
     @JoinColumn({ name: 'difficulty_id' })
     public difficulty_id: number;
 
-    @ManyToMany(() => CategoryEntity)
-    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'category_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes)
+    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'category_id' } })
     public categories: CategoryEntity[];
 
-    @ManyToMany(() => IngredientEntity)
-    @JoinTable({ name: 'ingredient_has_category', joinColumn: { name: 'ingredient_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.recipes)
+    @JoinTable({ name: 'recipe_has_ingredient', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'ingredient_id' } })
     public ingredients: IngredientEntity[];
 
     @Column('varchar', { length: 60, nullable: false, unique: true })

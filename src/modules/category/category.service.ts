@@ -4,10 +4,9 @@ import { CategoryEntity } from './category.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { Observable } from 'rxjs';
-import { ApiService } from '../../shared/interfaces';
 
 @Injectable()
-export class CategoryService implements ApiService<CategoryEntity> {
+export class CategoryService {
 
     constructor(
         @InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>,

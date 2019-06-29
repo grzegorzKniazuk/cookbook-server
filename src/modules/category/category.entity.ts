@@ -1,5 +1,6 @@
-import { AfterInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { FeatureName } from '../../shared/enums';
+import { RecipeEntity } from '../recipe/recipe.entity';
 
 @Entity(FeatureName.CATEGORY)
 export class CategoryEntity {
@@ -10,8 +11,7 @@ export class CategoryEntity {
     @Column('varchar', { length: 45, unique: true, nullable: false })
     public name: string;
 
-    @AfterInsert()
-    private afterInsert(): void {
-        console.log('dodano kategorię');
-    }
+    @ManyToMany(() => RecipeEntity, (recipe: RecipeEntity) => recipe.categories)
+    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'category_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    public recipes: RecipeEntity[];
 }

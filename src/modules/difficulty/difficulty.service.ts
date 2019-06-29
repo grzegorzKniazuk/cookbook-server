@@ -4,10 +4,9 @@ import { DifficultyEntity } from './difficulty.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { ApiService } from '../../shared/interfaces';
 
 @Injectable()
-export class DifficultyService implements ApiService<DifficultyEntity> {
+export class DifficultyService {
 
     constructor(
         @InjectRepository(DifficultyEntity) private readonly difficultyRepository: Repository<DifficultyEntity>,

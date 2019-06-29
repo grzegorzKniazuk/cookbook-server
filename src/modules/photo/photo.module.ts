@@ -1,14 +1,14 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { PhotoUploadController } from './photo-upload.controller';
+import { PhotoController } from './photo.controller';
 
 @Module({
     imports: [
         HttpModule,
     ],
     controllers: [
-        PhotoUploadController,
+        PhotoController,
     ],
 })
-export class PhotoUploadModule {
+export class PhotoModule {
 
 }

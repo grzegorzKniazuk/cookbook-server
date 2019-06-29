@@ -5,8 +5,8 @@ import { ExceptionResponse } from '../../shared/interfaces';
 import { diskStorage } from 'multer';
 import { ImageUploadPath } from '../../shared/constants';
 
-@Controller(FeatureName.UPLOAD)
-export class PhotoUploadController {
+@Controller(FeatureName.PHOTO)
+export class PhotoController {
 
     @Post()
     @UseInterceptors(FileInterceptor('image', {

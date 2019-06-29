@@ -13,23 +13,23 @@ export class RecipeController {
     ) {
     }
 
-    @Get()
-    public fetch(): Observable<RecipeEntity[]> {
-        return this.recipeService.findAll();
+    @Get(':id')
+    public async fetch(@Param('id') id: number): Promise<RecipeEntity[]> {
+        return await this.recipeService.findAll(id);
     }
 
     @Post()
-    public save(@Body() recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
-        return this.recipeService.create(recipe);
+    public async save(@Body() { userId, recipe }): Promise<RecipeEntity> {
+        return await this.recipeService.create(userId, recipe);
     }
 
     @Put(':id')
-    public update(@Param('id') id, @Body() recipe: RecipeEntity): Observable<UpdateResult> {
+    public update(@Param('id') id: number, @Body() recipe: RecipeEntity): Observable<UpdateResult> {
         return this.recipeService.update(id, recipe);
     }
 
     @Delete(':id')
-    public delete(@Param('id') id): Observable<DeleteResult> {
+    public delete(@Param('id') id: number): Observable<DeleteResult> {
         return this.recipeService.delete(id);
     }
 }

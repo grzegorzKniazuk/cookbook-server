@@ -6,25 +6,35 @@ import { DatabaseException } from '../../shared/exception-handlers';
 import { DatabaseErrorMessages } from '../../shared/constants';
 import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal-compatibility';
-import { ApiService } from '../../shared/interfaces';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class RecipeService implements ApiService<RecipeEntity> {
+export class RecipeService {
 
     constructor(
         @InjectRepository(RecipeEntity) private readonly recipeRepository: Repository<RecipeEntity>,
     ) {
     }
 
-    public findAll(): Observable<RecipeEntity[]> {
-        return fromPromise(this.recipeRepository.find());
+    public async findAll(id: number): Promise<RecipeEntity[]> {
+        return await this.recipeRepository
+                         .createQueryBuilder('recipe')
+                         .leftJoinAndSelect('recipe.categories', 'categories')
+                         .where('user_id = :id', { id })
+                         .getMany();
     }
 
-    public create(recipe: Partial<RecipeEntity>): Observable<RecipeEntity> {
-        return fromPromise(this.recipeRepository.save(recipe)).pipe(
-            catchError((e) => this.catchDatabaseException(e)),
-        );
+    public async create(userId: number, recipe: Partial<RecipeEntity>): Promise<RecipeEntity> {
+        console.log(userId);
+        console.log(recipe);
+        try {
+            return await this.recipeRepository.save({
+                ...recipe,
+                user_id: userId,
+            });
+        } catch (e) {
+            this.catchDatabaseException(e);
+        }
     }
 
     public update(id: number, recipe: RecipeEntity): Observable<UpdateResult> {
