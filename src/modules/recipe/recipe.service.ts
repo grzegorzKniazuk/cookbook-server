@@ -20,13 +20,12 @@ export class RecipeService {
         return await this.recipeRepository
                          .createQueryBuilder('recipe')
                          .leftJoinAndSelect('recipe.categories', 'categories')
+                         .leftJoinAndSelect('recipe.ingredients', 'ingredients')
                          .where('user_id = :id', { id })
                          .getMany();
     }
 
     public async create(userId: number, recipe: Partial<RecipeEntity>): Promise<RecipeEntity> {
-        console.log(userId);
-        console.log(recipe);
         try {
             return await this.recipeRepository.save({
                 ...recipe,
