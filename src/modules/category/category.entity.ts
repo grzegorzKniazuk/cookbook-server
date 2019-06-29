@@ -12,6 +12,6 @@ export class CategoryEntity {
     public name: string;
 
     @ManyToMany(() => RecipeEntity, (recipe: RecipeEntity) => recipe.categories)
-    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'category_id' }, inverseJoinColumn: { name: 'recipe_id' } })
+    @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'category_id' } })
     public recipes: RecipeEntity[];
 }

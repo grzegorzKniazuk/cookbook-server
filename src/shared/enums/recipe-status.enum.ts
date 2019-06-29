@@ -1,5 +1,5 @@
 export enum RecipeStatus {
-    PENDING,
+    PENDING = 1,
     ACCEPTED,
     REJECTED ,
 }
