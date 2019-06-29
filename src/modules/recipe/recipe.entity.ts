@@ -37,7 +37,7 @@ export class RecipeEntity {
     public name: string;
 
     @Column('varchar', { length: 60 })
-    public photo_url: string;
+    public photo_id: string;
 
     @Column('varchar', { length: 200, nullable: false })
     public ingredient_description: string;
