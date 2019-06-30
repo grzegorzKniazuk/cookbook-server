@@ -13,9 +13,9 @@ export class RecipeController {
     ) {
     }
 
-    @Get(':id')
-    public async fetch(@Param('id') id: number): Promise<RecipeEntity[]> {
-        return await this.recipeService.findAll(id);
+    @Get(':userId')
+    public async fetch(@Param('userId') userId: number): Promise<RecipeEntity[]> {
+        return await this.recipeService.findAll(userId);
     }
 
     @Post()
@@ -29,7 +29,7 @@ export class RecipeController {
     }
 
     @Delete(':id')
-    public delete(@Param('id') id: number): Observable<DeleteResult> {
-        return this.recipeService.delete(id);
+    public async delete(@Param('id') id: number): Promise<DeleteResult> {
+        return await this.recipeService.delete(id);
     }
 }

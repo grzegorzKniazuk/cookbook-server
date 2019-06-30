@@ -16,14 +16,14 @@ export class RecipeService {
     ) {
     }
 
-    public async findAll(id: number): Promise<RecipeEntity[]> {
+    public async findAll(userId: number): Promise<RecipeEntity[]> {
         return await this.recipeRepository
                          .createQueryBuilder('recipe')
                          .leftJoinAndSelect('recipe.categories', 'categories')
                          .leftJoinAndSelect('recipe.ingredients', 'ingredients')
                          .leftJoinAndSelect('recipe.status_id', 'status')
                          .leftJoinAndSelect('recipe.difficulty_id', 'difficulty')
-                         .where('user_id = :id', { id })
+                         .where('user_id = :userId', { userId })
                          .getMany();
     }
 
@@ -44,10 +44,12 @@ export class RecipeService {
         );
     }
 
-    public delete(id: number): Observable<DeleteResult> {
-        return fromPromise(this.recipeRepository.delete(id)).pipe(
-            catchError((e) => this.catchDatabaseException(e)),
-        );
+    public async delete(id: number): Promise<DeleteResult> {
+        try {
+            return await this.recipeRepository.delete(id);
+        } catch (e) {
+            this.catchDatabaseException(e);
+        }
     }
 
     private catchDatabaseException(e): never {
