@@ -4,9 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RecipeEntity } from './recipe.entity';
 import { DatabaseException } from '../../shared/exception-handlers';
 import { DatabaseErrorMessages } from '../../shared/constants';
-import { Observable } from 'rxjs';
-import { fromPromise } from 'rxjs/internal-compatibility';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class RecipeService {
@@ -38,10 +35,14 @@ export class RecipeService {
         }
     }
 
-    public update(id: number, recipe: RecipeEntity): Observable<UpdateResult> {
-        return fromPromise(this.recipeRepository.update(id, recipe)).pipe(
-            catchError((e) => this.catchDatabaseException(e)),
-        );
+    public async update(id: number, recipe: RecipeEntity): Promise<UpdateResult> {
+        try {
+            return await this.recipeRepository.update(id, {
+                ...recipe,
+            });
+        } catch (e) {
+            this.catchDatabaseException(e);
+        }
     }
 
     public async delete(id: number): Promise<DeleteResult> {

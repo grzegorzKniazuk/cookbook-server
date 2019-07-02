@@ -24,8 +24,8 @@ export class RecipeController {
     }
 
     @Put(':id')
-    public update(@Param('id') id: number, @Body() recipe: RecipeEntity): Observable<UpdateResult> {
-        return this.recipeService.update(id, recipe);
+    public async update(@Param('id') id: number, @Body() recipe: RecipeEntity): Promise<UpdateResult> {
+        return await this.recipeService.update(id, recipe);
     }
 
     @Delete(':id')
