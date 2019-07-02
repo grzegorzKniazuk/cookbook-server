@@ -1,4 +1,15 @@
-import { Controller, Get, HttpException, HttpStatus, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpException,
+    HttpStatus,
+    InternalServerErrorException,
+    Param,
+    Post,
+    Res,
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
 import { FeatureName } from '../../shared/enums';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ExceptionResponse } from '../../shared/interfaces';
@@ -20,11 +31,9 @@ export class PhotoController {
             },
         }),
     }))
-    public uploadPhoto(@UploadedFile() { filename, mimetype }): { name: string } {
+    public uploadPhoto(@UploadedFile() { filename, mimetype }): { filename: string } {
         if (mimetype.startsWith('image')) {
-            const name = filename.split('.').shift();
-
-            return { name };
+            return { filename };
         } else {
             const response: ExceptionResponse = { code: 'UNSUPPORTED_MEDIA_TYPE', message: 'Nieobsługiwany format pliku' };
 
@@ -34,6 +43,17 @@ export class PhotoController {
 
     @Get(':filename')
     public getPhoto(@Param('filename') filename: string, @Res() response) {
-        return response.sendFile(`${filename}.jpg`, { root: ImagePath });
+        const fileSystem = require('fs');
+        const extensions = [ 'jpg', 'jpeg', 'gif', 'bmp', 'png' ];
+
+        try {
+            extensions.forEach((extension: string) => {
+                if (fileSystem.existsSync(`${ImagePath}/${filename}.${extension}`)) {
+                    return response.sendFile(`${filename}.${extension}`, { root: ImagePath });
+                }
+            });
+        } catch (e) {
+            throw new InternalServerErrorException(response, `Nie znaleziono pliku o nazwie ${filename}`);
+        }
     }
 }
