@@ -31,9 +31,11 @@ export class PhotoController {
             },
         }),
     }))
-    public uploadPhoto(@UploadedFile() { filename, mimetype }): { filename: string } {
+    public uploadPhoto(@UploadedFile() { filename, mimetype }): { name: string } {
         if (mimetype.startsWith('image')) {
-            return { filename };
+            const name = filename.split('.').shift();
+
+            return { name };
         } else {
             const response: ExceptionResponse = { code: 'UNSUPPORTED_MEDIA_TYPE', message: 'Nieobsługiwany format pliku' };
 
