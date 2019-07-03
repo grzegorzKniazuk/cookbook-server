@@ -35,11 +35,12 @@ export class RecipeService {
         }
     }
 
-    public async update(id: number, recipe: RecipeEntity): Promise<UpdateResult> {
+    public async update(userId: number, recipeId: number, recipe: Partial<RecipeEntity>): Promise<UpdateResult> {
+        console.log(userId);
+        console.log(recipeId);
+
         try {
-            return await this.recipeRepository.update(id, {
-                ...recipe,
-            });
+            return await this.recipeRepository.update(9, { ...recipe });
         } catch (e) {
             this.catchDatabaseException(e);
         }

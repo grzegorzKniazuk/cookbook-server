@@ -23,9 +23,9 @@ export class RecipeController {
         return await this.recipeService.create(userId, recipe);
     }
 
-    @Put(':id')
-    public async update(@Param('id') id: number, @Body() recipe: RecipeEntity): Promise<UpdateResult> {
-        return await this.recipeService.update(id, recipe);
+    @Put(':recipeId')
+    public async update(@Param('recipeId') recipeId: number, @Body() { userId, recipe }): Promise<UpdateResult> {
+        return await this.recipeService.update(userId, recipeId, recipe);
     }
 
     @Delete(':id')
