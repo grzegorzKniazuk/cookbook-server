@@ -17,19 +17,19 @@ export class RecipeEntity {
     @JoinColumn({ name: 'user_id' })
     public user_id: number;
 
-    @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false, cascade: [ 'insert' ],  })
+    @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false })
     @JoinColumn({ name: 'status_id' })
     public status_id: number;
 
-    @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false, cascade: [ 'insert' ],  })
+    @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false })
     @JoinColumn({ name: 'difficulty_id' })
     public difficulty_id: number;
 
-    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes, { nullable: false, cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'category_id' } })
     public categories: CategoryEntity[];
 
-    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.recipes, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.recipes, { nullable: false, cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinTable({ name: 'recipe_has_ingredient', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'ingredient_id' } })
     public ingredients: IngredientEntity[];
 

@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RecipeEntity } from './recipe.entity';
 import { DatabaseException } from '../../shared/exception-handlers';
 import { DatabaseErrorMessages } from '../../shared/constants';
+import { omit } from 'lodash';
 
 @Injectable()
 export class RecipeService {
@@ -36,11 +37,9 @@ export class RecipeService {
     }
 
     public async update(userId: number, recipeId: number, recipe: Partial<RecipeEntity>): Promise<UpdateResult> {
-        console.log(userId);
-        console.log(recipeId);
-
+        const recipeData = omit(recipe, ['categories']);
         try {
-            return await this.recipeRepository.update(9, { ...recipe });
+            return await this.recipeRepository.update({ id: recipeId, user_id: userId }, recipeData);
         } catch (e) {
             this.catchDatabaseException(e);
         }

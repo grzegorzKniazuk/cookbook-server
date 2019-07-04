@@ -3,7 +3,6 @@ import { FeatureName } from '../../shared/enums';
 import { RecipeService } from './recipe.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { RecipeEntity } from './recipe.entity';
-import { Observable } from 'rxjs';
 
 @Controller(FeatureName.RECIPE)
 export class RecipeController {
