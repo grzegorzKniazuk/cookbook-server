@@ -37,7 +37,7 @@ export class RecipeService {
     }
 
     public async update(userId: number, recipeId: number, recipe: Partial<RecipeEntity>): Promise<UpdateResult> {
-        const recipeData = omit(recipe, ['categories']);
+        const recipeData = omit(recipe, ['categories', 'ingredients']);
         try {
             return await this.recipeRepository.update({ id: recipeId, user_id: userId }, recipeData);
         } catch (e) {

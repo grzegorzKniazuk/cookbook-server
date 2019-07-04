@@ -25,11 +25,11 @@ export class RecipeEntity {
     @JoinColumn({ name: 'difficulty_id' })
     public difficulty_id: number;
 
-    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes, { nullable: false, cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+    @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes, { nullable: false })
     @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'category_id' } })
     public categories: CategoryEntity[];
 
-    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.recipes, { nullable: false, cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+    @ManyToMany(() => IngredientEntity, (ingredient: IngredientEntity) => ingredient.recipes, { nullable: false })
     @JoinTable({ name: 'recipe_has_ingredient', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'ingredient_id' } })
     public ingredients: IngredientEntity[];
 
