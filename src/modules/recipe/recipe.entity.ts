@@ -45,6 +45,9 @@ export class RecipeEntity {
     @Column('varchar', { length: 200, nullable: false })
     public recipe_description: string;
 
+    @Column('varchar', { length: 200, nullable: true })
+    public sources_description: string;
+
     @Column('varchar', { length: 45, nullable: false })
     public time: string;
 }
