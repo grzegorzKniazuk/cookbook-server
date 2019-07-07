@@ -9,6 +9,7 @@ import { IngredientEntity } from '../ingredient/ingredient.entity';
 @Entity(FeatureName.RECIPE)
 export class RecipeEntity {
 
+    @ManyToMany(() => UserEntity, (entity: UserEntity) => entity.id, { nullable: false })
     @PrimaryGeneratedColumn()
     public id: number;
 
