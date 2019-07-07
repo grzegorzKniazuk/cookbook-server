@@ -6,7 +6,7 @@ import { RecipeEntity } from '../recipe/recipe.entity';
 export class StatusEntity {
 
     @PrimaryGeneratedColumn()
-    @OneToMany(() => RecipeEntity, (entity: RecipeEntity) => entity.difficulty_id)
+    @OneToMany(() => RecipeEntity, (entity: RecipeEntity) => entity.status)
     public id: number;
 
     @Column('varchar', { length: 45, unique: true, nullable: false })

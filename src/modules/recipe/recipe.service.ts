@@ -19,8 +19,8 @@ export class RecipeService {
                          .createQueryBuilder('recipe')
                          .leftJoinAndSelect('recipe.categories', 'categories')
                          .leftJoinAndSelect('recipe.ingredients', 'ingredients')
-                         .leftJoinAndSelect('recipe.status_id', 'status')
-                         .leftJoinAndSelect('recipe.difficulty_id', 'difficulty')
+                         .leftJoinAndSelect('recipe.status', 'status')
+                         .leftJoinAndSelect('recipe.difficulty', 'difficulty')
                          .where('user_id = :userId', { userId })
                          .getMany();
     }

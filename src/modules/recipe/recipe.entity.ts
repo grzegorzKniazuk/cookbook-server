@@ -19,11 +19,11 @@ export class RecipeEntity {
 
     @ManyToOne(() => StatusEntity, (entity: StatusEntity) => entity.id, { nullable: false })
     @JoinColumn({ name: 'status_id' })
-    public status_id: number;
+    public status: StatusEntity;
 
     @ManyToOne(() => DifficultyEntity, (entity: DifficultyEntity) => entity.id, { nullable: false })
     @JoinColumn({ name: 'difficulty_id' })
-    public difficulty_id: number;
+    public difficulty: DifficultyEntity;
 
     @ManyToMany(() => CategoryEntity, (category: CategoryEntity) => category.recipes, { nullable: false })
     @JoinTable({ name: 'recipe_has_category', joinColumn: { name: 'recipe_id' }, inverseJoinColumn: { name: 'category_id' } })
