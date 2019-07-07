@@ -9,7 +9,10 @@ export class RecipeStatusMiddleware implements NestMiddleware {
             ...req.body,
             recipe: {
                 ...req.body.recipe,
-                status_id: RecipeStatus.ACCEPTED,
+                status: {
+                    id: RecipeStatus.ACCEPTED,
+                    name: 'accepted',
+                },
             },
         };
         next();
