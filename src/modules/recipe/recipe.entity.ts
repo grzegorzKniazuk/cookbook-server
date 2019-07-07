@@ -51,4 +51,7 @@ export class RecipeEntity {
 
     @Column('varchar', { length: 45, nullable: false })
     public time: string;
+
+    @Column('boolean', { default: false })
+    public favorite: boolean;
 }

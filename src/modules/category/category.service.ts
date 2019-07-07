@@ -21,7 +21,7 @@ export class CategoryService {
         return fromPromise(this.categoryRepository.save(category));
     }
 
-    public update(id: number, category: CategoryEntity): Observable<UpdateResult> {
+    public update(id: number, category: Partial<CategoryEntity>): Observable<UpdateResult> {
         return fromPromise(this.categoryRepository.update(id, category));
     }
 

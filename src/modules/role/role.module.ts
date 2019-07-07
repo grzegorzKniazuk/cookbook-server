@@ -13,7 +13,7 @@ import { RoleService } from './role.service';
     ],
     providers: [
         RoleService,
-    ]
+    ],
 })
 export class RoleModule {
 }

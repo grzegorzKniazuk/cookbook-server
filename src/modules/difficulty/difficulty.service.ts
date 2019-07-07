@@ -21,7 +21,7 @@ export class DifficultyService {
         return fromPromise(this.difficultyRepository.save(difficultyLevel));
     }
 
-    public update(id: number, difficultyLevel: DifficultyEntity): Observable<UpdateResult> {
+    public update(id: number, difficultyLevel: Partial<DifficultyEntity>): Observable<UpdateResult> {
         return fromPromise(this.difficultyRepository.update(id, difficultyLevel));
     }
 

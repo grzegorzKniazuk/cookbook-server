@@ -21,7 +21,7 @@ export class IngredientService {
         return fromPromise(this.ingredientRepository.save(ingredient));
     }
 
-    public update(id: number, ingredient: IngredientEntity): Observable<UpdateResult> {
+    public update(id: number, ingredient: Partial<IngredientEntity>): Observable<UpdateResult> {
         return fromPromise(this.ingredientRepository.update(id, ingredient));
     }
 
