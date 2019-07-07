@@ -14,7 +14,7 @@ import { FeatureName } from '../../shared/enums';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ExceptionResponse } from '../../shared/interfaces';
 import { diskStorage } from 'multer';
-import { ImagePath } from '../../shared/constants';
+import { IMAGE_PATH } from '../../shared/constants';
 
 @Controller(FeatureName.PHOTO)
 export class PhotoController {
@@ -23,7 +23,7 @@ export class PhotoController {
     @UseInterceptors(FileInterceptor('image', {
         storage: diskStorage({
             destination: function (request, file, callback) {
-                callback(null, ImagePath);
+                callback(null, IMAGE_PATH);
             },
             filename: function (request, file, callback) {
                 const extension = file.originalname.split('.').pop();
@@ -50,8 +50,8 @@ export class PhotoController {
 
         try {
             extensions.forEach((extension: string) => {
-                if (fileSystem.existsSync(`${ImagePath}/${filename}.${extension}`)) {
-                    return response.sendFile(`${filename}.${extension}`, { root: ImagePath });
+                if (fileSystem.existsSync(`${IMAGE_PATH}/${filename}.${extension}`)) {
+                    return response.sendFile(`${filename}.${extension}`, { root: IMAGE_PATH });
                 }
             });
         } catch (e) {

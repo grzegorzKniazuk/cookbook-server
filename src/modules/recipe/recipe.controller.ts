@@ -27,8 +27,8 @@ export class RecipeController {
         return await this.recipeService.update(userId, recipeId, recipe);
     }
 
-    @Delete(':id')
-    public async delete(@Param('id') id: number): Promise<DeleteResult> {
-        return await this.recipeService.delete(id);
+    @Delete(':userId/:recipeId')
+    public async delete(@Param('userId') userId: number, @Param('recipeId') recipeId: number): Promise<DeleteResult> {
+        return await this.recipeService.delete(userId, recipeId);
     }
 }

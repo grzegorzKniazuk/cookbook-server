@@ -3,7 +3,7 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RecipeEntity } from './recipe.entity';
 import { DatabaseException } from '../../shared/exception-handlers';
-import { DatabaseErrorMessages } from '../../shared/constants';
+import { DATABASE_ERROR_MESSAGES } from '../../shared/constants';
 import { omit } from 'lodash';
 
 @Injectable()
@@ -45,9 +45,9 @@ export class RecipeService {
         }
     }
 
-    public async delete(id: number): Promise<DeleteResult> {
+    public async delete(userId: number, recipeId: number): Promise<DeleteResult> {
         try {
-            return await this.recipeRepository.delete(id);
+            return await this.recipeRepository.delete({ id: recipeId, user_id: userId });
         } catch (e) {
             this.catchDatabaseException(e);
         }
@@ -56,7 +56,7 @@ export class RecipeService {
     private catchDatabaseException(e): never {
         throw new DatabaseException({
             code: e.code,
-            message: DatabaseErrorMessages[e.code] || e.message,
+            message: DATABASE_ERROR_MESSAGES[e.code] || e.message,
         }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
